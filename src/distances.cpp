@@ -188,3 +188,43 @@ NumericVector mdCosine(const NumericMatrix &m, int origin, const NumericVector &
   return result;
 }
 
+
+//' compute Hellinger distance between two vectors
+//'
+//' @keywords internal
+//' @noRd
+//' @param x numeric vector
+//' @param y numeric vector
+//'
+//' @return Hellinger distance between x and y
+// [[Rcpp::export]]
+double dHellinger(const NumericVector &x, const NumericVector &y) {
+  int xlen = x.size();
+  double sum = 0.0;
+  for (int i=0; i<xlen; i++) {
+    sum += pow(sqrt(x[i]) - sqrt(y[i]), 2);
+  }
+  return sqrt(sum) / sqrt(2);
+}
+
+//' compute Hellinger distances
+//'
+//' @keywords internal
+//' @noRd
+//' @param m matrix with raw data
+//' @param origin index (1-based) of origin element
+//' @param targets indexes (1-based) of target elements
+//'
+//' @return Hellinger distances between origin and target elements
+// [[Rcpp::export]]
+NumericVector mdHellinger(const NumericMatrix &m, int origin, const NumericVector &targets) {
+  int numtargets = targets.size();
+  NumericVector result(numtargets);
+  NumericVector odata = m(_, origin-1);
+  for (int i=0; i<numtargets; i++) {
+    result[i] = dHellinger(odata, m(_, targets[i]-1));
+  }
+  return result;
+}
+
+
