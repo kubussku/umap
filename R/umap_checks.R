@@ -96,7 +96,8 @@ umap.prep.config <- function(config=umap.defaults, ...) {
                            pearson2=mdCenteredPearson,
                            pearson=mdCosine,
                            cosine=mdCosine,
-                           euclidean=mdEuclidean)
+                           euclidean=mdEuclidean,
+                           hellinger=mdhellinger)
     if (config$metric %in% names(available.metrics)) {
       config$metric.function <- available.metrics[[config$metric]]
     } else {
