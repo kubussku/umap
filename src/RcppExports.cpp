@@ -35,6 +35,31 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// dHellinger
+double dHellinger(const NumericVector& x, const NumericVector& y);
+RcppExport SEXP _umap_dHellinger(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(dHellinger(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
+// mdHellinger
+NumericVector mdHellinger(const NumericMatrix& m, int origin, const NumericVector& targets);
+RcppExport SEXP _umap_mdHellinger(SEXP mSEXP, SEXP originSEXP, SEXP targetsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type m(mSEXP);
+    Rcpp::traits::input_parameter< int >::type origin(originSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type targets(targetsSEXP);
+    rcpp_result_gen = Rcpp::wrap(mdHellinger(m, origin, targets));
+    return rcpp_result_gen;
+END_RCPP
+}
 // dManhattan
 double dManhattan(const NumericVector& x, const NumericVector& y);
 RcppExport SEXP _umap_dManhattan(SEXP xSEXP, SEXP ySEXP) {
@@ -160,6 +185,8 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_umap_dEuclidean", (DL_FUNC) &_umap_dEuclidean, 2},
     {"_umap_mdEuclidean", (DL_FUNC) &_umap_mdEuclidean, 3},
+    {"_umap_dHellinger", (DL_FUNC) &_umap_dHellinger, 2},
+    {"_umap_mdHellinger", (DL_FUNC) &_umap_mdHellinger, 3},
     {"_umap_dManhattan", (DL_FUNC) &_umap_dManhattan, 2},
     {"_umap_mdManhattan", (DL_FUNC) &_umap_mdManhattan, 3},
     {"_umap_dCenteredPearson", (DL_FUNC) &_umap_dCenteredPearson, 2},
